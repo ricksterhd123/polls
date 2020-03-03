@@ -17,11 +17,19 @@ function main()
     polls = Polls(db)
     -- Votes
     votes = Votes(db)
-    iprint(polls:add("hello world", "12345test"))
-    iprint(polls:get())
-    iprint(votes:add(1, "pilot", 1))
-    iprint(votes:get(1))
+    -- iprint(polls:add("hello world", "12345test"))
+    -- iprint(polls:get())
+    -- iprint(votes:add(1, "pilot", 1))
+    -- iprint(votes:get(1))
     -- Hook events:
 end
 
 addEventHandler("onResourceStart", resourceRoot, main)
+
+
+function clientPreStart()
+    local isAdmin = hasObjectPermissionTo(source, "function.kickPlayer", false)
+    triggerClientEvent(source, "onStart", resourceRoot, isAdmin) 
+end
+addEvent("onPreStart", true)
+addEventHandler("onPreStart", root, clientPreStart)
