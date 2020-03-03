@@ -1,0 +1,1 @@
+-- Retreives data from models, updates view.
