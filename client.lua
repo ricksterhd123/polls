@@ -1,10 +1,10 @@
 -- Retreives data from models, updates view.
-function main(isAdmin)
-    local pollMain = PollMain()
-    local pollRead = PollRead()
-    local pollVote = PollVote()
-    local pollEdit = PollEdit()
-
+function main(isAdmin, polls)
+    local pollMain = PollMain(isAdmin, polls)
+    pollMain:show()
+    --local pollRead = PollRead()
+    --local pollVote = PollVote()
+    --local pollEdit = PollEdit()
     iprint(isAdmin)
 end
 addEvent("onStart", true)

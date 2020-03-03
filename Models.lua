@@ -83,7 +83,7 @@ function votes:new(dbObject)
             ID INTEGER NOT NULL,
             PollID INTEGER NOT NULL,
             Account VARCHAR(255),
-            Vote INTEGEr,
+            Vote INTEGER,
             PRIMARY KEY (ID),
             FOREIGN KEY (PollID) REFERENCES polls(ID)
         )
