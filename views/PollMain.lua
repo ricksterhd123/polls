@@ -34,11 +34,13 @@ Create the GUI elements and set visible
 ]]
 function pollMain:create()
     self.window[1] = guiCreateWindow(0.06, 0.09, 0.88, 0.83, "Poll window", true)
-    self.button[1] = guiCreateButton(0.78, 0.07, 0.20, 0.07, "Add", true, self.window[1])
-    self.button[2] = guiCreateButton(0.78, 0.16, 0.20, 0.07, "Edit", true, self.window[1])
-    self.button[3] = guiCreateButton(0.78, 0.25, 0.20, 0.07, "Archive", true, self.window[1])
-    self.button[4] = guiCreateButton(0.78, 0.34, 0.20, 0.07, "Delete", true, self.window[1])
-    self.button[5] = guiCreateButton(0.78, 0.43, 0.20, 0.07, "Close", true, self.window[1])
+    if self.isAdmin then
+        self.button[1] = guiCreateButton(0.78, 0.07, 0.20, 0.07, "Add", true, self.window[1])
+        self.button[2] = guiCreateButton(0.78, 0.16, 0.20, 0.07, "Edit", true, self.window[1])
+        self.button[3] = guiCreateButton(0.78, 0.25, 0.20, 0.07, "Archive", true, self.window[1])
+        self.button[4] = guiCreateButton(0.78, 0.34, 0.20, 0.07, "Delete", true, self.window[1])
+    end
+    self.button[5] = guiCreateButton(0.78, 0.88, 0.20, 0.07, "Close", true, self.window[1])
     self.gridlist[1] = guiCreateGridList(0.03, 0.06, 0.74, 0.92, true, self.window[1])
     guiWindowSetSizable(self.window[1], false)
     self:updateGridList()
@@ -66,8 +68,21 @@ function pollMain:setAdmin(isAdmin)
 end
 
 function pollMain:setPolls(polls)
-
     self:update()
+end
+
+function pollMain:getPollSelected(id)
+    local row, _ = guiGridListGetSelectedItem(self.gridlist[1])
+    if row == -1 then return false end
+    local id = guiGridListGetItemText(self.gridlist[1], row, 1)
+    id = tonumber(id)
+    assert(id, "ID not a number")
+    for i, poll in ipairs(self.polls) do
+        if poll.ID == id then
+            return poll
+        end
+    end
+    return false
 end
 
 --[[

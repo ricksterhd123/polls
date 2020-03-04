@@ -16,18 +16,21 @@ setmetatable(pollEdit, {
     end,
 })
 
-function pollEdit:new(title, description)
+function pollEdit:new(pollID, title, description)
+    self.id = pollID
     self.title = title
     self.description = description
     self.visible = false
-    if not title and not description then
+    if not title and not description and not pollID then
         self.mode = false
         self.title = ""
         self.description = ""
+        self.id = -1
     else
         self.mode = true
         if not self.title then self.title = "" end
         if not self.description then self.description = "" end
+        
     end
     self:create()
 end
@@ -60,13 +63,18 @@ function pollEdit:setMode(mode)
     self:update()
 end
 
-function pollEdit:setTitle(title)
-    self.title = title
+function pollEdit:setPoll(poll)
+    if not poll then return end
+    self.id = poll.ID
+    self.title = poll.Title
+    self.description = poll.Description
     self:update()
 end
 
-function pollEdit:setDescription(description)
-    self.description = description
+function pollEdit:clear()
+    self.id = -1
+    self.title = ""
+    self.description = ""
     self:update()
 end
 
@@ -74,6 +82,11 @@ function pollEdit:setVisible(bool)
     self.visible = bool
     guiSetVisible(self.window[1], bool)
     if bool then guiFocus(self.window[1]) end
+end
+
+function pollEdit:getPoll(poll)
+    if self.id == -1 then return false end
+    return self.id
 end
 
 function pollEdit:destroy()
