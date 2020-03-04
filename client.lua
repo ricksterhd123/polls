@@ -1,35 +1,49 @@
 local cursorShowing = false
 local pollMain = nil
-local pollRead = nil
 local pollEdit = nil
 local pollVote = nil
 
 -- Retreives data from models, updates view.
 function main(isAdmin, polls)
     pollMain = PollMain(isAdmin, polls)
-    pollMain:show()
-    -- Add
-    addEventHandler("onClientGUIClick", pollMain.button[1], 
-    function ()
-        iprint("Add")
-    end, false)
-    -- Edit
-    addEventHandler("onClientGUIClick", pollMain.button[2], 
-    function ()
-        iprint("Edit")
-    end, false)
+    -- pollVote = PollVote()
+    
+    pollMain:setVisible(true)
+    if isAdmin then
+        pollEdit = PollEdit()
+        pollEdit:setMode(true)
+        -- Add
+        addEventHandler("onClientGUIClick", pollMain.button[1], 
+        function ()
+            iprint("Add")
+            pollEdit:setMode(false)
+            pollEdit:setTitle("")
+            pollEdit:setDescription("")
+            pollEdit:setVisible(true)
+        end, false)
+        -- Edit
+        addEventHandler("onClientGUIClick", pollMain.button[2], 
+        function ()
+            iprint("Edit")
+            pollEdit:setMode(true)
+            pollEdit:setTitle("")
+            pollEdit:setDescription("")
+            pollEdit:setVisible(true)
+        end, false)
+        -- Archive
+        addEventHandler("onClientGUIClick", pollMain.button[3], 
+        function ()
+            iprint("Archive")
+        end, false)
+        -- Delete
+        addEventHandler("onClientGUIClick", pollMain.button[4], 
+        function ()
+            iprint("Delete")
+        end, false)
+    end
 
-    -- Archive
-    addEventHandler("onClientGUIClick", pollMain.button[3], 
-    function ()
-        iprint("Archive")
-    end, false)
-
-    -- Delete
-    addEventHandler("onClientGUIClick", pollMain.button[4], 
-    function ()
-        iprint("Delete")
-    end, false)
+    
+    
 
     -- Read
     addEventHandler("onClientGUIDoubleClick", pollMain.gridlist[1], 
@@ -37,9 +51,6 @@ function main(isAdmin, polls)
         iprint("Read")
     end, false)
 
-    --local pollRead = PollRead()
-    --local pollVote = PollVote()
-    --local pollEdit = PollEdit()
     showCursor(true)
     cursorShowing = true
 end

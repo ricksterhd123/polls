@@ -3,7 +3,6 @@
     
     <!-- Client-side -->
     <script src="views/PollVote.lua" type="client"/>
-    <script src="views/pollRead.lua" type="client"/>
     <script src="views/PollEdit.lua" type="client" cache="false"/>
     <script src="views/PollMain.lua" type="client"/>
     <!-- Client entry point -->
