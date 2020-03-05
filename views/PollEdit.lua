@@ -21,16 +21,16 @@ function pollEdit:new(pollID, title, description)
     self.title = title
     self.description = description
     self.visible = false
-    if not title and not description and not pollID then
+    if not pollID then
         self.mode = false
         self.title = ""
         self.description = ""
         self.id = -1
     else
         self.mode = true
+        -- this shouldn't happen
         if not self.title then self.title = "" end
         if not self.description then self.description = "" end
-        
     end
     self:create()
 end

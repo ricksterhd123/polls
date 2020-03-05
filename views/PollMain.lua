@@ -92,7 +92,7 @@ function pollMain:updateGridList()
     if not self.gridlist[1] or not self.polls then return false end
     guiGridListClear(self.gridlist[1])
     guiGridListAddColumn(self.gridlist[1], "ID", 0.1)
-    guiGridListAddColumn(self.gridlist[1], "Description", 0.5)
+    guiGridListAddColumn(self.gridlist[1], "Title", 0.5)
     guiGridListAddColumn(self.gridlist[1], "Votes (YES/NO)", 0.2)
     guiGridListAddColumn(self.gridlist[1], "Voted", 0.2)
 
