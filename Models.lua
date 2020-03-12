@@ -46,7 +46,8 @@ function polls:new(dbObject)
         CREATE TABLE IF NOT EXISTS `polls` (
             ID INTEGER PRIMARY KEY,
             Title VARCHAR(255),
-            Description VARCHAR(255)
+            Description VARCHAR(255),
+            Archived INTEGER,
         )
     ]])
     iprint("polls table created")
@@ -54,10 +55,11 @@ function polls:new(dbObject)
 end
 
 function polls:add(title, description)
-    return model.add(self, "INSERT INTO `polls` (Title, Description) VALUES (?, ?)", title, description)
+    return model.add(self, "INSERT INTO `polls` (Title, Description, Archived) VALUES (?, ?, 0)", title, description)
 end
 
-function polls:update(ID, newTitle, newDescription)
+function polls:update(ID, newTitle, newDescription, archived)
+    archived = archived and "1" or "0"
     return model.update(self, "UPDATE `polls` SET Title = ?, Description = ? WHERE ID = ?", newTitle, newDescription, ID)
 end
 
@@ -99,10 +101,6 @@ function votes:add(pollID, accountName, votedYes)
         votedYes = 0
     end
     return model.add(self, "INSERT INTO `votes` (PollID, Account, Vote) VALUES (?, ?, ?)", pollID, accountName, votedYes)
-end
-
-function votes:update(ID, newTitle, newDescription)
-    return model.update(self, "UPDATE `votes` SET Title = ?, Description = ? WHERE ID = ?", newTitle, newDescription, ID)
 end
 
 function votes:get(pollID)

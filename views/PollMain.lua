@@ -60,14 +60,15 @@ function pollMain:update()
 end
 
 function pollMain:setAdmin(isAdmin)
-    guiSetVisible(self.button[1], false)
-    guiSetVisible(self.button[2], false)
-    guiSetVisible(self.button[3], false)
-    guiSetVisible(self.button[4], false)
+    guiSetVisible(self.button[1], isAdmin)
+    guiSetVisible(self.button[2], isAdmin)
+    guiSetVisible(self.button[3], isAdmin)
+    guiSetVisible(self.button[4], isAdmin)
     self:update()
 end
 
 function pollMain:setPolls(polls)
+    self.polls = polls
     self:update()
 end
 

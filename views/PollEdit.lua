@@ -28,7 +28,7 @@ function pollEdit:new(pollID, title, description)
         self.id = -1
     else
         self.mode = true
-        -- this shouldn't happen
+        -- TODO: this shouldn't happen
         if not self.title then self.title = "" end
         if not self.description then self.description = "" end
     end
@@ -47,6 +47,7 @@ function pollEdit:create()
     self.button[1] = guiCreateButton(0.04, 0.89, 0.33, 0.09, self.mode and "Edit poll" or "Add poll", true, self.window[1])
     self.button[2] = guiCreateButton(0.40, 0.89, 0.33, 0.09, "Back", true, self.window[1])
     guiSetVisible(self.window[1], false)
+    self:update()
 end
 
 function pollEdit:update()
@@ -84,9 +85,18 @@ function pollEdit:setVisible(bool)
     if bool then guiFocus(self.window[1]) end
 end
 
-function pollEdit:getPoll(poll)
+function pollEdit:getPollID()
     if self.id == -1 then return false end
     return self.id
+end
+
+function pollEdit:getTitleDescription()
+    local title = guiGetText(self.edit[1])
+    local description = guiGetText(self.memo[1])
+    -- TODO: this should be in update
+    self.title = title
+    self.description = description
+    return title, description
 end
 
 function pollEdit:destroy()
